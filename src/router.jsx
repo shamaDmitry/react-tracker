@@ -13,6 +13,7 @@ import Settings from './Pages/Settings';
 import SettingsLang from './Pages/SettingsLang';
 import SettingsServer from './Pages/SettingsServer';
 import ProjectsList from './Pages/ProjectsList';
+import Project from './Pages/Project';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
         <Route path="/settings-lang" element={<SettingsLang />} />
         <Route path="/settings-server" element={<SettingsServer />} />
         <Route path="/list" element={<ProjectsList />} />
+        <Route path="/project/:id" element={<Project />} />
       </Route>
 
       <Route path="*" element={<Page_404 />} />

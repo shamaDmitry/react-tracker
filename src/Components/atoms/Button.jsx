@@ -22,8 +22,9 @@ const Button = ({
         {
           'bg-primary-500 shadow-md text-white border-primary-500 hover:bg-primary-400 hover:border-primary-400':
             type === 'primary',
-          'border-primary-500 text-primary-500 shadow-sm': type === 'outline',
+          'border-primary-500 text-primary-500 shadow-sm hover:bg-primary-500 hover:text-white': type === 'outline',
           'text-base font-bold': size === 'normal',
+          'text-lg': size === 'large',
           'bg-secondary-200 text-dark-200 pointer-events-none border-secondary-200 shadow-none':
             disabled,
         }
