@@ -3,8 +3,14 @@ import Logo from '../assets/logo.svg?react';
 import Settings from '../assets/icons/settings.svg?react';
 import Search from '../assets/icons/search.svg?react';
 import Footer from '../Components/blocks/Footer';
+import useProjectsStore from '../store/projectsStore';
+import formatterTime from '../helpers/formatterTime';
+import { useState } from 'react';
 
 const ProjectsList = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [projects] = useProjectsStore(store => [store.projects]);
+
   return (
     <div className="outline flex flex-col self-center flex-1 w-full ProjectsList max-w-[340px] bg-secondary-100 h-screen">
       <div className="bg-white py-[10px] px-[17px]">
@@ -18,12 +24,13 @@ const ProjectsList = () => {
               type="text"
               placeholder="Search contracts"
               className="w-full px-4 py-2 pl-8 border rounded-full"
+              onChange={e => setSearchTerm(e.target.value)}
             />
           </div>
 
-          <button className="text-primary-500 hover:text-primary-400">
+          {/* <button className="text-primary-500 hover:text-primary-400">
             <Settings />
-          </button>
+          </button> */}
         </div>
 
         <div className="flex items-center justify-between">
@@ -33,21 +40,27 @@ const ProjectsList = () => {
       </div>
 
       <div className="flex flex-col relative flex-1 overflow-y-auto pt-[10px]">
-        <Link
-          className="flex text-sm justify-between px-4 py-3 mb-[5px] bg-white"
-          to="/project/1"
-        >
-          <span className="text-dark-300">Workshop Workshop Workshop Workshop Workshop Workshop Workshop Workshop Workshop </span>
-          <span className="text-primary-500">0:30</span>
-        </Link>
+        {projects
+          .filter(project =>
+            project.title.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map(project => {
+            const { hours, minutes } = formatterTime(project.workedTime);
 
-        <Link
-          className="flex text-sm justify-between px-4 py-3 mb-[5px] bg-white"
-          to="/project/1"
-        >
-          <span className="text-dark-300">CartelTech Projects</span>
-          <span className="text-primary-500">2:30</span>
-        </Link>
+            return (
+              <Link
+                key={project.id}
+                className="flex text-sm justify-between px-4 py-3 mb-[5px] bg-white"
+                to={`/project/${project.id}`}
+              >
+                <span className="text-dark-300">{project.title}</span>
+                <span className="text-primary-500">
+                  {hours.toString().padStart(2, '0')} :{' '}
+                  {minutes.toString().padStart(2, '0')}
+                </span>
+              </Link>
+            );
+          })}
 
         <div className="sticky bottom-0 left-0 w-full p-4 mt-auto bg-white">
           <Footer />
