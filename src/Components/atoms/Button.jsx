@@ -7,7 +7,7 @@ const Button = ({
   to,
   children,
   className,
-  type = 'primary',
+  color = 'primary',
   size = 'normal',
   disabled,
 }) => {
@@ -21,8 +21,9 @@ const Button = ({
         `transition tracking-wide flex items-center justify-center capitalize text px-4 py-2 border rounded ${className}`,
         {
           'bg-primary-500 shadow-md text-white border-primary-500 hover:bg-primary-400 hover:border-primary-400':
-            type === 'primary',
-          'border-primary-500 text-primary-500 shadow-sm hover:bg-primary-500 hover:text-white': type === 'outline',
+            color === 'primary',
+          'border-primary-500 text-primary-500 shadow-sm hover:bg-primary-500 hover:text-white':
+            color === 'outline',
           'text-base font-bold': size === 'normal',
           'text-lg': size === 'large',
           'bg-secondary-200 text-dark-200 pointer-events-none border-secondary-200 shadow-none':

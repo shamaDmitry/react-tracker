@@ -3,7 +3,7 @@ import Header from '../Components/blocks/Header';
 
 const Settings = () => {
   return (
-    <div className="outline flex flex-col self-center flex-1 w-full Settings max-w-[340px] bg-secondary-100">
+    <div className="flex flex-col self-center flex-1 w-full h-full Settings bg-secondary-100">
       <Header title="Settings" linkTo="/" />
 
       <div className="py-1">
