@@ -23,3 +23,11 @@ export const passwordRules = {
     value: 5,
   },
 };
+
+export const userNameRules = {
+  required: 'Username is required',
+  minLength: {
+    message: 'Username should contain min 5 characters',
+    value: 3,
+  },
+};

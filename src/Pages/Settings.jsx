@@ -6,7 +6,7 @@ const Settings = () => {
     <div className="flex flex-col self-center flex-1 w-full h-full Settings bg-secondary-100">
       <Header title="Settings" linkTo="/" />
 
-      <div className="py-1">
+      <div className="flex-1 py-1">
         <Link className="flex px-4 py-3 mb-1 bg-white" to="/settings-lang">
           Change Language
         </Link>

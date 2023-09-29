@@ -49,6 +49,7 @@ const Login = () => {
           Login
         </Button>
       </form>
+      
       <Button as="Link" to="/settings" color="outline" className="w-full mb-2">
         Settings
       </Button>
