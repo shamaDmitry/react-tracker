@@ -55,12 +55,9 @@ const Input = forwardRef(
 
         {error && (
           <div
-            className={classNames(
-              `text-xs font-normal w-full text-left py-1`,
-              {
-                'text-red-500': error,
-              }
-            )}
+            className={classNames(`text-xs font-normal w-full text-left py-1`, {
+              'text-red-500': error,
+            })}
           >
             {error.message}
           </div>

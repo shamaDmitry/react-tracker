@@ -7,6 +7,7 @@ import User from '../assets/icons/user.svg?react';
 import Key from '../assets/icons/key.svg?react';
 import Logo from '../assets/logo.svg?react';
 import { emailRules, passwordRules } from '../helpers/validationRules';
+import { LOCAL_STORAGE_TOKEN_NAME } from '../../config';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ const Login = () => {
 
   const onSubmit = async data => {
     console.log(data);
+    localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, JSON.stringify(data));
+
     navigate('/list');
   };
 
@@ -49,7 +52,7 @@ const Login = () => {
           Login
         </Button>
       </form>
-      
+
       <Button as="Link" to="/settings" color="outline" className="w-full mb-2">
         Settings
       </Button>

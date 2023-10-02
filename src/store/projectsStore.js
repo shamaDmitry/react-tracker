@@ -22,15 +22,16 @@ const initData = [
   },
 ];
 
+const seedLocalStorage = data => {
+  localStorage.setItem('projects', JSON.stringify(data));
+  return data;
+};
+
 const useProjectsStore = create((set, get) => ({
   projects:
-    JSON.parse(localStorage.getItem('projects')) ||
-    localStorage.setItem('projects', JSON.stringify(initData)),
-  // setProject: project => {
-  //   set({ projects: project });
-  // },
+    JSON.parse(localStorage.getItem('projects')) || seedLocalStorage(initData),
   getAllProjects: async () => {
-    get().projects;
+    return await get().projects;
   },
   getProject: projectId => {
     const filtered = get().projects.filter(project => project.id === projectId);

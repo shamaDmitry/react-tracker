@@ -12,7 +12,7 @@ const ProjectsList = () => {
   const [projects] = useProjectsStore(store => [store.projects]);
 
   return (
-    <div className="outline flex flex-col self-center flex-1 w-full ProjectsList max-w-[340px] bg-secondary-100 h-screen">
+    <div className="flex-1 flex flex-col w-full ProjectsList max-w-[340px] bg-secondary-100">
       <div className="bg-white py-[10px] px-[17px]">
         <Logo className="w-[90px] h-[16px] mb-3" />
 

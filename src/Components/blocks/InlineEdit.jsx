@@ -42,8 +42,8 @@ const InlineEdit = ({ value, setValue }) => {
     <div>
       <input
         onClick={() => setIsEditing(true)}
-        className={classNames('w-full p-2', {
-          'border border-b-0': isEditing,
+        className={classNames('transition w-full p-2 border border-transparent border-b-gray-200', {
+          'border-gray-200': isEditing,
         })}
         type="text"
         aria-label="Field name"

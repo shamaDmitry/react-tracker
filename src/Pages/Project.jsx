@@ -54,7 +54,7 @@ const Project = () => {
 
           <Timer initTime={data.workedTime} />
 
-          <div className="mb-3 border-b border-secondary-200">
+          <div className="mb-3">
             <InlineEdit value={memo} setValue={setMemo} />
           </div>
 
