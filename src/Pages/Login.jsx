@@ -7,10 +7,16 @@ import User from '../assets/icons/user.svg?react';
 import Key from '../assets/icons/key.svg?react';
 import Logo from '../assets/logo.svg?react';
 import { emailRules, passwordRules } from '../helpers/validationRules';
-import { LOCAL_STORAGE_TOKEN_NAME } from '../../config';
+import { API_URL, LOCAL_STORAGE_TOKEN_NAME } from '../../config';
+import { useEffect } from 'react';
 
 const Login = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch(`${API_URL}/user/info?id=651c2d73dc293e1bffa2d1ab`);
+    return () => {};
+  }, []);
 
   const {
     register,

@@ -37,7 +37,7 @@ const router = createBrowserRouter(
         />
       </Route>
 
-      <Route path="/" element={<ProtectedRoute />}>
+      <Route element={<ProtectedRoute />}>
         <Route index path="/list" element={<ProjectsList />} />
         <Route path="/project/:id" element={<Project />} />
       </Route>
