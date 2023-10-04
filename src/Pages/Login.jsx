@@ -7,16 +7,14 @@ import User from '../assets/icons/user.svg?react';
 import Key from '../assets/icons/key.svg?react';
 import Logo from '../assets/logo.svg?react';
 import { emailRules, passwordRules } from '../helpers/validationRules';
-import { API_URL, LOCAL_STORAGE_TOKEN_NAME } from '../../config';
-import { useEffect } from 'react';
+import { LOCAL_STORAGE_TOKEN_NAME } from '../../config';
+import { useState } from 'react';
+import userApi from '../api/modules/user.api';
 
 const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(undefined);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch(`${API_URL}/user/info?id=651c2d73dc293e1bffa2d1ab`);
-    return () => {};
-  }, []);
 
   const {
     register,
@@ -24,16 +22,39 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async data => {
-    console.log(data);
-    localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, JSON.stringify(data));
+  const onSubmit = async (data, event) => {
+    event.preventDefault();
 
-    navigate('/list');
+    setIsLoading(true);
+    setErrorMessage(undefined);
+
+    const { response, err } = await userApi.signin(data);
+
+    if (response) {
+      setIsLoading(false);
+
+      // dispatch(setUser(response));
+      // toast.success("Sign in success");
+
+      localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, JSON.stringify(response));
+      navigate('/list');
+    }
+
+    if (err) {
+      setIsLoading(false);
+      setErrorMessage(err);
+    }
   };
 
   return (
     <div className="flex flex-col items-center self-center flex-1 w-full p-4 px-4 py-10 LOGIN">
       <Logo className="max-w-[200px] mb-20" />
+
+      {errorMessage && (
+        <div className="p-3 mb-4 text-sm text-red-500 border border-red-500 rounded">
+          {JSON.stringify(errorMessage, null, 2)}
+        </div>
+      )}
 
       <form className="w-full" onSubmit={handleSubmit(onSubmit)} noValidate>
         <Input
@@ -54,7 +75,7 @@ const Login = () => {
           error={errors.password}
         />
 
-        <Button className="w-full mb-4" type="submit">
+        <Button className="w-full mb-4" type="submit" disabled={isLoading}>
           Login
         </Button>
       </form>

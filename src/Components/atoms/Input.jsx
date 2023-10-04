@@ -44,10 +44,9 @@ const Input = forwardRef(
             type={type}
             placeholder={placeholder}
             className={classNames(
-              `w-full px-4 py-2 border rounded ${className}`,
-              {
+              `w-full px-4 py-2 border rounded ${className}`, {
                 'pl-9': icon,
-                'border-red-500 placeholder:text-red-500': error,
+                'border-red-500 placeholder:text-red-500 text-red-500': error,
               }
             )}
           />

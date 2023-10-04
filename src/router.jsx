@@ -33,7 +33,7 @@ const router = createBrowserRouter(
         <Route
           path="/settings-server"
           loader={authLoader}
-          delement={<SettingsServer />}
+          element={<SettingsServer />}
         />
       </Route>
 
