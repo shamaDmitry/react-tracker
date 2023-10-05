@@ -6,14 +6,14 @@ import { useState } from 'react';
 import Modal from '../Components/blocks/Modal';
 import Button from '../Components/atoms/Button';
 import Timer from '../Components/blocks/Timer';
-import useProjectsStore from '../store/projectsStore';
 import InlineEdit from '../Components/blocks/InlineEdit';
+import useContractStore from '../store/useContractStore';
 
 const Project = () => {
-  const [getProject] = useProjectsStore(store => [store.getProject]);
+  const [getContract] = useContractStore(store => [store.getProject]);
   const params = useParams();
   const [memo, setMemo] = useState('');
-  const [data, setData] = useState(() => getProject(params.id));
+  const [data, setData] = useState(() => getContract(params.id));
   const [isShown, setIsShown] = useState(false);
   console.log('memo', memo);
 

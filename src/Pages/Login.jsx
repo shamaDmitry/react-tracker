@@ -10,8 +10,11 @@ import { emailRules, passwordRules } from '../helpers/validationRules';
 import { LOCAL_STORAGE_TOKEN_NAME } from '../../config';
 import { useState } from 'react';
 import userApi from '../api/modules/user.api';
+import useUserStore from '../store/useUserStore';
 
 const Login = () => {
+  const [setUser] = useUserStore(state => [state.setUser]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const navigate = useNavigate();
@@ -33,11 +36,15 @@ const Login = () => {
 
     if (response) {
       setIsLoading(false);
+      setUser(response);
 
-      // dispatch(setUser(response));
-      // toast.success("Sign in success");
+      localStorage.setItem(
+        LOCAL_STORAGE_TOKEN_NAME,
+        JSON.stringify(response.token)
+      );
 
-      localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, JSON.stringify(response));
+      localStorage.setItem('user', JSON.stringify(response));
+
       navigate('/list');
     }
 

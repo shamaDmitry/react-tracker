@@ -1,9 +1,9 @@
 import axios from 'axios';
 import queryString from 'query-string';
-import { API_URL } from '../../../config';
+import { API_URL, LOCAL_STORAGE_TOKEN_NAME } from '../../../config';
 
 const privateClient = axios.create({
-  API_URL,
+  baseURL: API_URL,
   paramsSerializer: {
     encode: params => {
       console.log('private.client params', params);
@@ -18,14 +18,19 @@ privateClient.interceptors.request.use(async config => {
     ...config,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('actkn')}`,
+      Authorization: `Bearer ${JSON.parse(
+        localStorage.getItem(LOCAL_STORAGE_TOKEN_NAME)
+      )}`,
     },
   };
 });
 
 privateClient.interceptors.response.use(
   response => {
-    if (response && response.data) return response.data;
+    if (response && response.data) {
+      return response.data;
+    }
+
     return response;
   },
   err => {
