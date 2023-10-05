@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from '../Components/atoms/Button';
 import Input from '../Components/atoms/Input';
 
@@ -15,6 +15,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     register,
@@ -49,6 +50,10 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center self-center flex-1 w-full p-4 px-4 py-10 LOGIN">
       <Logo className="max-w-[200px] mb-20" />
+
+      {location.state && (
+        <div className="mb-3 text-red-500">{location.state.message}</div>
+      )}
 
       {errorMessage && (
         <div className="p-3 mb-4 text-sm text-red-500 border border-red-500 rounded">

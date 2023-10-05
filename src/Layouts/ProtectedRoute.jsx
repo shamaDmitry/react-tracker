@@ -26,6 +26,8 @@ const ProtectedRoute = () => {
           <div className="flex-shrink-0 w-2.5 h-2.5 bg-red-500 rounded-full"></div>
           <div className="flex-shrink-0 w-2.5 h-2.5 bg-yellow-500 rounded-full"></div>
           <div className="flex-shrink-0 w-2.5 h-2.5 bg-green-500 rounded-full"></div>
+
+          <pre className="ml-auto text-sm">{import.meta.env.MODE}</pre>
         </div>
 
         <div className="flex flex-1 max-h-full pt-5 overflow-auto">
