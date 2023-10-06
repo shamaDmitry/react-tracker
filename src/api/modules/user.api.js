@@ -21,6 +21,20 @@ const userApi = {
     }
   },
 
+  signup: async ({ username, email, password }) => {
+    try {
+      const response = await publicClient.post(userEndpoints.signup, {
+        username,
+        email,
+        password,
+      });
+
+      return { response };
+    } catch (err) {
+      return { err };
+    }
+  },
+
   test: async () => {
     try {
       const response = await privateClient.get(userEndpoints.test);

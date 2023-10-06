@@ -11,7 +11,6 @@ const Input = forwardRef(
       onBlur,
       name,
       className = '',
-      helperText,
       defaultValue,
       required,
       error,

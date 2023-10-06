@@ -49,11 +49,17 @@ const ProjectsList = () => {
       </div>
 
       <div className="flex flex-col relative flex-1 overflow-y-auto pt-[10px]">
-        <pre>{JSON.stringify(contracts, null, 2)}</pre>
+        {!contracts.length && (
+          <div className="font-bold text-center capitalize">
+            nothing is here!
+          </div>
+        )}
 
         {contracts
           .filter(contract =>
-            contract.contractName.toLowerCase().includes(searchTerm.toLowerCase())
+            contract.contractName
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
           )
           .map(contract => {
             const { hours, minutes } = formatterTime(contract.workedTime);
@@ -62,7 +68,7 @@ const ProjectsList = () => {
               <Link
                 key={contract.id}
                 className="flex text-sm justify-between px-4 py-3 mb-[5px] bg-white"
-                to={`/project/${contract.id}`}
+                to={`/contract/${contract.id}`}
               >
                 <span className="text-dark-300">{contract.contractName}</span>
                 <span className="text-primary-500 whitespace-nowrap">

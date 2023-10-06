@@ -38,8 +38,8 @@ const router = createBrowserRouter(
       </Route>
 
       <Route element={<ProtectedRoute />}>
-        <Route index path="/list" element={<ProjectsList />} />
-        <Route path="/project/:id" element={<Project />} />
+        <Route index path="/contracts" element={<ProjectsList />} />
+        <Route path="/contract/:id" element={<Project />} />
       </Route>
 
       <Route path="*" element={<Page_404 />} />

@@ -60,10 +60,6 @@ const Timer = ({ initTime }) => {
         <div className="flex flex-col items-center opacity-50">
           <span className="text-primary-500 text-[40px] font-bold leading-8 mb-2 relative">
             {seconds.toString().padStart(2, '0')}
-
-            <span className="absolute text-base text-black -right-4">
-              {milliseconds.toString().padStart(2, '0')}
-            </span>
           </span>
           <span className="text-sm text-dark-300">Seconds</span>
         </div>

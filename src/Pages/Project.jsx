@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../Components/blocks/Header';
 import ImagePlaceholder from '../assets/icons/imagePlaceholder.svg?react';
 import Footer from '../Components/blocks/Footer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '../Components/blocks/Modal';
 import Button from '../Components/atoms/Button';
 import Timer from '../Components/blocks/Timer';
@@ -10,13 +10,19 @@ import InlineEdit from '../Components/blocks/InlineEdit';
 import useContractStore from '../store/useContractStore';
 
 const Project = () => {
-  const [getContract] = useContractStore(store => [store.getProject]);
+  const [contract, getContract, setContract] = useContractStore(store => [
+    store.contract,
+    store.getContract,
+    store.setContract,
+  ]);
+
   const params = useParams();
   const [memo, setMemo] = useState('');
-  const [data, setData] = useState(() => getContract(params.id));
   const [isShown, setIsShown] = useState(false);
-  console.log('memo', memo);
-
+  useEffect(() => {
+    getContract(params.id);
+    return () => {};
+  }, [getContract]);
   return (
     <>
       {isShown && (
@@ -39,48 +45,54 @@ const Project = () => {
         </Modal>
       )}
 
-      <div className="outline flex flex-col self-center flex-1 w-full PROJECT max-w-[340px]">
-        <Header
-          title={data.title}
-          subtitle={data.client}
-          linkTo="/list"
-          handleBack={() => console.log('handleBack')}
-        />
+      <div className="flex flex-col w-full PROJECT">
+        {contract && (
+          <>
+            <Header
+              title={contract.contractName}
+              subtitle={contract.clientName}
+              linkTo="/contracts"
+              handleBack={() => setContract(null)}
+            />
 
-        <div className="p-4">
-          <p className="mb-4 text-lg text-center text-dark-400">
-            Tuesday 06, April
-          </p>
+            <div className="flex flex-col flex-1 p-4">
+              <p className="mb-4 text-lg text-center text-dark-400">
+                Tuesday 06, April
+              </p>
 
-          <Timer initTime={data.workedTime} />
+              <Timer initTime={contract.workedTime} />
 
-          <div className="mb-3">
-            <InlineEdit value={memo} setValue={setMemo} />
-          </div>
+              <div className="mb-3">
+                <InlineEdit value={contract.memoText} setValue={setMemo} />
+              </div>
 
-          <div className="flex justify-between mb-3">
-            <div className="flex flex-col text-sm text-dark-300">
-              <span className="font-bold">Latest screen capture:</span>
-              <span className="text-dark-200">2 days ago</span>
+              <div className="flex justify-between mb-3">
+                <div className="flex flex-col text-sm text-dark-300">
+                  <span className="font-bold">Latest screen capture:</span>
+                  <span className="text-dark-200">2 days ago</span>
+                </div>
+
+                <div className="flex flex-col text-sm text-dark-300">
+                  <span className="font-bold">This week (UTC)</span>
+                  <span>
+                    <span className="text-primary-500">08:40</span> of{' '}
+                    <span className="text-primary-500">30</span> hrs
+                  </span>
+                </div>
+              </div>
+
+              <div className="h-[173px] rounded-[15px] bg-secondary-100 border border-secondary-200 mb-3 flex flex-col items-center justify-center">
+                <p className="mb-3 text-sm text-secondary-400">
+                  No captures yet
+                </p>
+
+                <ImagePlaceholder className="text-secondary-400" />
+              </div>
+
+              <Footer className="mt-auto" />
             </div>
-
-            <div className="flex flex-col text-sm text-dark-300">
-              <span className="font-bold">This week (UTC)</span>
-              <span>
-                <span className="text-primary-500">08:40</span> of{' '}
-                <span className="text-primary-500">30</span> hrs
-              </span>
-            </div>
-          </div>
-
-          <div className="h-[173px] rounded-[15px] bg-secondary-100 border border-secondary-200 mb-3 flex flex-col items-center justify-center">
-            <p className="mb-3 text-sm text-secondary-400">No captures yet</p>
-
-            <ImagePlaceholder className="text-secondary-400" />
-          </div>
-
-          <Footer />
-        </div>
+          </>
+        )}
       </div>
     </>
   );

@@ -11,6 +11,7 @@ import { LOCAL_STORAGE_TOKEN_NAME } from '../../config';
 import { useState } from 'react';
 import userApi from '../api/modules/user.api';
 import useUserStore from '../store/useUserStore';
+import Errors from '../Components/blocks/Errors';
 
 const Login = () => {
   const [setUser] = useUserStore(state => [state.setUser]);
@@ -42,10 +43,9 @@ const Login = () => {
         LOCAL_STORAGE_TOKEN_NAME,
         JSON.stringify(response.token)
       );
-
       localStorage.setItem('user', JSON.stringify(response));
 
-      navigate('/list');
+      navigate('/contracts');
     }
 
     if (err) {
@@ -62,15 +62,12 @@ const Login = () => {
         <div className="mb-3 text-red-500">{location.state.message}</div>
       )}
 
-      {errorMessage && (
-        <div className="p-3 mb-4 text-sm text-red-500 border border-red-500 rounded">
-          {JSON.stringify(errorMessage, null, 2)}
-        </div>
-      )}
+      {errorMessage && <Errors data={errorMessage} />}
 
       <form className="w-full" onSubmit={handleSubmit(onSubmit)} noValidate>
         <Input
           placeholder="Email"
+          defaultValue="test@test.com"
           icon={<User />}
           name="email"
           required
@@ -81,6 +78,7 @@ const Login = () => {
         <Input
           placeholder="Password"
           icon={<Key />}
+          defaultValue="test1"
           name="password"
           required
           {...register('password', passwordRules)}
@@ -92,9 +90,9 @@ const Login = () => {
         </Button>
       </form>
 
-      <Button as="Link" to="/settings" color="outline" className="w-full mb-2">
+      {/* <Button as="Link" to="/settings" color="outline" className="w-full mb-2">
         Settings
-      </Button>
+      </Button> */}
 
       <Link to="/register" className="py-2 text-sm uppercase text-primary-400">
         register
