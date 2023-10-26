@@ -34,6 +34,13 @@ privateClient.interceptors.response.use(
     return response;
   },
   err => {
+    const { response } = err;
+
+    if (response.status === 401 && response.statusText === 'Unauthorized') {
+      localStorage.clear();
+      window.location = '/login';
+    }
+
     throw err.response.data;
   }
 );

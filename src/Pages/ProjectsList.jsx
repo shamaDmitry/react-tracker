@@ -6,6 +6,7 @@ import Footer from '../Components/blocks/Footer';
 import formatterTime from '../helpers/formatterTime';
 import { useEffect, useState } from 'react';
 import useContractStore from '../store/useContractStore';
+import Spinner from '../Components/atoms/Spinner';
 
 const ProjectsList = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -26,7 +27,6 @@ const ProjectsList = () => {
 
         <div className="flex items-center justify-between gap-3 mb-2">
           <div className="relative flex items-center w-full">
-            <Search className="absolute -translate-y-1/2 text-primary-500 left-3 top-1/2" />
             <Search className="absolute -translate-y-1/2 text-primary-500 left-3 top-1/2" />
 
             <input
@@ -50,8 +50,8 @@ const ProjectsList = () => {
 
       <div className="flex flex-col relative flex-1 overflow-y-auto pt-[10px]">
         {!contracts.length && (
-          <div className="font-bold text-center capitalize">
-            nothing is here!
+          <div className='flex justify-center mb-4'>
+            <Spinner />
           </div>
         )}
 

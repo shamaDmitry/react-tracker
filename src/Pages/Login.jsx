@@ -94,9 +94,9 @@ const Login = () => {
         Settings
       </Button> */}
 
-      <Link to="/register" className="py-2 text-sm uppercase text-primary-400">
+      {/* <Link to="/register" className="py-2 text-sm uppercase text-primary-400">
         register
-      </Link>
+      </Link> */}
     </div>
   );
 };

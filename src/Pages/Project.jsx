@@ -8,6 +8,7 @@ import Button from '../Components/atoms/Button';
 import Timer from '../Components/blocks/Timer';
 import InlineEdit from '../Components/blocks/InlineEdit';
 import useContractStore from '../store/useContractStore';
+import Spinner from '../Components/atoms/Spinner';
 
 const Project = () => {
   const [contract, getContract, setContract] = useContractStore(store => [
@@ -22,7 +23,7 @@ const Project = () => {
   useEffect(() => {
     getContract(params.id);
     return () => {};
-  }, [getContract]);
+  }, [getContract, params.id]);
   return (
     <>
       {isShown && (
@@ -46,6 +47,12 @@ const Project = () => {
       )}
 
       <div className="flex flex-col w-full PROJECT">
+        {!contract && (
+          <div className='flex items-center justify-center flex-1'>
+            <Spinner />
+          </div>
+        )}
+
         {contract && (
           <>
             <Header
